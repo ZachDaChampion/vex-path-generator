@@ -1,0 +1,46 @@
+const Reference = {
+  'world': 0,
+  'topdown': 1,
+  'angled': 2
+};
+
+class Point {
+
+  constructor (x, y, reference=Reference.world) {
+
+    switch (reference) {
+
+      case (Reference.world):
+        this.x = x;
+        this.y = y;
+        break;
+
+      case (Reference.topdown):
+        this.x = x * 144.0 / config.topdown_image.dimensions.field_width;
+        this.y = y * 144.0 / config.topdown_image.dimensions.field_height;
+        break;
+
+      case (Reference.angled):
+        let transformed = perspective_from_angle.transform([x, y]);
+        this.x = transformed[0] * 144.0 / config.topdown_image.dimensions.field_width;
+        this.y = transformed[1] * 144.0 / config.topdown_image.dimensions.field_height;
+        break;
+    }
+  }
+
+  get_x (reference=Reference.world) {
+    switch (reference) {
+      case (Reference.world): return this.x;
+      case (Reference.topdown): return this.x * config.topdown_image.dimensions.field_width / 144.0;
+      case (Reference.angled): return perspective_to_angle.transform(this.x * config.topdown_image.dimensions.field_width / 144.0, this.y * config.topdown_image.dimensions.field_height / 144.0)[0];
+    }
+  }
+
+  get_y (reference=Reference.world) {
+    switch (reference) {
+      case (Reference.world): return this.y;
+      case (Reference.topdown): return this.y * config.topdown_image.dimensions.field_height / 144.0;
+      case (Reference.angled): return perspective_to_angle.transform(this.x * config.topdown_image.dimensions.field_width / 144.0, this.y * config.topdown_image.dimensions.field_height / 144.0)[1];
+    }
+  }
+}

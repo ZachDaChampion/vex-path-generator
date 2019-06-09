@@ -3,11 +3,35 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
-    <style> body {padding: 0; margin: 0;} </style>
+
+    <style> 
+      body, head, div {
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+      } 
+
+      h1, h2, h3 {
+        font-family: sans-serif;
+        padding: 0;
+        margin: 8px;
+        color: white;
+      }
+    </style>
+
     <script src="../p5.min.js"></script>
     <script src="sketch.js"></script>
+    <script src="config.js"></script>
+    <script src="point.js"></script>
     <script src="curve_calc.min.js"></script>
+    <script src="perspective_transform.min.js"></script>
   </head>
   <body>
+
+    <div style="height: 128px; width: 100%; background-color: blueviolet">
+      <h1 style="font-size: 58px">Autonomous Generator</h3>
+      <h3 style="font-size: 29px">VRC - Tower Takeover</h1>
+    </div>
+
   </body>
 </html>
