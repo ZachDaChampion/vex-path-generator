@@ -62,25 +62,29 @@ function draw() {
   );
 
   // draw cursor on angled field
-  stroke(0);
-  fill(255);
-  ellipse(
-    p.get_x(Reference.angled) * scale + 32,
-    p.get_y(Reference.angled) *scale + 32 + config.topdown_image.dimensions.height * scale + 32,
-    5, 5
-  );
+  if (region == Region.field_topdown) {
+    stroke(0);
+    fill(255);
+    ellipse(
+      p.get_x(Reference.angled) * scale + 32,
+      p.get_y(Reference.angled) *scale + 32 + config.topdown_image.dimensions.height * scale + 32,
+      5, 5
+    );
+  }
   
   // draw foreground of angled field
   image(field_angled_front, 32,  32 + config.topdown_image.dimensions.height * scale + 32, config.angle_image.dimensions.width * scale, config.angle_image.dimensions.height * scale);
 
   // redraw cursor on angled field, inverted at low opacity (for visibility behind foreground)
-  stroke(255, 50);
-  fill(0, 50);
-  ellipse(
-    p.get_x(Reference.angled) * scale + 32,
-    p.get_y(Reference.angled) *scale + 32 + config.topdown_image.dimensions.height * scale + 32,
-    5, 5
-  );
+  if (region == Region.field_topdown) {
+    stroke(255, 50);
+    fill(0, 50);
+    ellipse(
+      p.get_x(Reference.angled) * scale + 32,
+      p.get_y(Reference.angled) *scale + 32 + config.topdown_image.dimensions.height * scale + 32,
+      5, 5
+    );
+  }
 }
 
 // recalculate scale when window resized

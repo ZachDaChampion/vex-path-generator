@@ -3,7 +3,8 @@ const Region = {
   'field_topdown': 0,
   'field_angled': 1,
 
-  'get_region': function(x, y) {
+  // determine which region a point is at on the screen
+  'get_region': function (x, y) {
 
     // topdown field
     if (
