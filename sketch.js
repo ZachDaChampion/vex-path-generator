@@ -1,6 +1,5 @@
 let field_angled;
 let perspective_to_angle;
-let perspective_from_angle;
 let field_topdown;
 let scale;
 let list_width = 256;
@@ -40,7 +39,6 @@ function setup() {
     config.topdown_image.perspective_coords.bottom_right.x, config.topdown_image.perspective_coords.bottom_right.y,
   ];
   perspective_to_angle = PerspT(top_down_corners, angled_corners);
-  perspective_from_angle = PerspT(angled_corners, top_down_corners);
   
   // scale
   scale_fields();
@@ -53,10 +51,13 @@ function draw() {
   image(field_topdown, 32, 32, config.topdown_image.dimensions.width * scale, config.topdown_image.dimensions.height * scale);
   image(field_angled, 32, 32 + config.topdown_image.dimensions.height * scale + 32, config.angle_image.dimensions.width * scale, config.angle_image.dimensions.height * scale);
 
+  // figure out which region the cursor is in
+  let region = Region.get_region(mouseX, mouseY);
+
   // get cursor pos
   let p = new Point(
-    (mouseX - 32 - (config.topdown_image.perspective_coords.top_left.x * scale)) / scale,
-    (mouseY - 32 - (config.topdown_image.perspective_coords.top_left.y * scale)) / scale,
+    (mouseX - 32) / scale,
+    (mouseY - 32) / scale,
     Reference.topdown
   );
 
@@ -64,8 +65,8 @@ function draw() {
   stroke(0);
   fill(255);
   ellipse(
-    p.get_x(Reference.angled) * scale + 32 + config.topdown_image.perspective_coords.top_left.x * scale/2,
-    p.get_y(Reference.angled) *scale + 32 + config.topdown_image.dimensions.height * scale + 32 + config.topdown_image.perspective_coords.top_left.y * scale/2,
+    p.get_x(Reference.angled) * scale + 32,
+    p.get_y(Reference.angled) *scale + 32 + config.topdown_image.dimensions.height * scale + 32,
     5, 5
   );
   
@@ -76,8 +77,8 @@ function draw() {
   stroke(255, 50);
   fill(0, 50);
   ellipse(
-    p.get_x(Reference.angled) * scale + 32 + config.topdown_image.perspective_coords.top_left.x * scale/2,
-    p.get_y(Reference.angled) *scale + 32 + config.topdown_image.dimensions.height * scale + 32 + config.topdown_image.perspective_coords.top_left.y * scale/2,
+    p.get_x(Reference.angled) * scale + 32,
+    p.get_y(Reference.angled) *scale + 32 + config.topdown_image.dimensions.height * scale + 32,
     5, 5
   );
 }
