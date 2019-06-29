@@ -2,7 +2,7 @@ let field_angled;
 let perspective_to_angle;
 let field_topdown;
 let scale;
-let list_width = 256;
+let list_width = 384;
 
 function preload() {
   field_angled = loadImage(config.angle_image.path);
@@ -91,6 +91,9 @@ function draw() {
       5, 5
     );
   }
+
+  // draw side menu
+  draw_side_menu();
 }
 
 // recalculate scale when window resized
