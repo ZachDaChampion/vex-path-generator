@@ -5,3 +5,6 @@ class PathPoint {
     this.direction = direction;
   }
 }
+
+let point_path = [];
+let shape_path = [];

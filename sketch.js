@@ -71,6 +71,12 @@ function draw() {
       5, 5
     );
   }
+
+  // draw shapes
+  for (var i = 0; i < shape_path.length; i++) {
+    shape_path[i].draw(Reference.topdown);
+    shape_path[i].draw(Reference.angled);
+  }
   
   // draw foreground of angled field
   image(field_angled_front, 32,  32 + config.topdown_image.dimensions.height * scale + 32, config.angle_image.dimensions.width * scale, config.angle_image.dimensions.height * scale);
