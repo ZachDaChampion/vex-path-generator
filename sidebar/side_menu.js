@@ -8,6 +8,9 @@ function draw_side_menu() {
   rect(0, 0, list_width, height);
 
   // draw point config
-  draw_point_config(width - list_width, 0);
+  if (selected_type == 'point') {
+    update_point_config();
+    draw_point_config(width - list_width, 0);
+  }
 
 }
