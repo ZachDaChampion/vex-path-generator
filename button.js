@@ -1,17 +1,19 @@
 class Button {
 
-  constructor(x, y, width, height, label) {
+  constructor(x, y, width, height, label, callback=null) {
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
     this.label = label;
+    this.callback = callback;
 
     this.mouse_over = false;
     this.mouse_down = false;
     this.fresh_click = false;
     this.fresh_release = false;
   }
+
 
   update(mx, my) {
 
@@ -24,7 +26,18 @@ class Button {
     this.fresh_click = this.mouse_over && down && !this.mouse_down;
     this.fresh_release = this.mouse_over && !down && this.mouse_down;
     this.mouse_down = down && this.mouse_over;
+
+    // callback
+    if (this.fresh_release) {
+      try {
+        this.callback();
+      }
+      catch(error) {
+        console.error(error);
+      }
+    }
   }
+
 
   draw() {
 
@@ -39,10 +52,9 @@ class Button {
     textAlign(LEFT, CENTER);
     textSize(this.height * .625);
     noStroke();
-    if (clr == 192) fill(128);
+    if (clr == 192) fill(64);
     else if (clr == 128) fill(64);
     else fill(192);
     text(this.label, this.x + 12, this.y + this.height/2 + 2);
   }
-
 }

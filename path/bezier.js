@@ -1,10 +1,8 @@
 class PathBezier {
 
-  constructor (start_index, end_index, start_weight=5, end_weight=5) {
+  constructor (start_index, end_index) {
     this.start_index = start_index;
     this.end_index = end_index;
-    this.start_weight = start_weight;
-    this.end_weight = end_weight;
 
     this.calc_bezier();
   }
@@ -12,8 +10,8 @@ class PathBezier {
   calc_bezier() {
 
     // calculate relative pull points
-    let pull_a = new Point(Math.cos(point_path[this.start_index].direction.angle) * this.start_weight, Math.sin(point_path[this.start_index].direction.angle) * this.start_weight, Reference.world);
-    let pull_b = new Point(Math.cos(point_path[this.end_index].direction.angle + Math.PI) * this.end_weight, Math.sin(point_path[this.end_index].direction.angle + Math.PI) * this.end_weight, Reference.world);
+    let pull_a = new Point(Math.cos(point_path[this.start_index].direction.angle) * point_path[this.start_index].weight, Math.sin(point_path[this.start_index].direction.angle) * point_path[this.start_index].weight, Reference.world);
+    let pull_b = new Point(Math.cos(point_path[this.end_index].direction.angle + Math.PI) * point_path[this.end_index].weight, Math.sin(point_path[this.end_index].direction.angle + Math.PI) * point_path[this.end_index].weight, Reference.world);
 
     // generate curve
     this.curve = new Bezier(
