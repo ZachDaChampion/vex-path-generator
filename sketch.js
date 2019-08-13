@@ -55,19 +55,42 @@ function draw() {
   let region = Region.get_region(mouseX, mouseY);
 
   // get cursor pos
-  let p = new Point(
-    (mouseX - 32) / scale,
-    (mouseY - 32) / scale,
-    Reference.topdown
-  );
+  let p;
 
   // draw cursor on angled field
   if (region == Region.field_topdown) {
+    p = new Point(
+      (mouseX - 32) / scale,
+      (mouseY - 32) / scale,
+      Reference.topdown
+    );
     stroke(0);
     fill(255);
     ellipse(
       p.get_x(Reference.angled) * scale + 32,
+      p.get_y(Reference.angled) * scale + 32 + config.topdown_image.dimensions.height * scale + 32,
+      5, 5
+    );
+    stroke(255, 50);
+    fill(0, 50);
+    ellipse(
+      p.get_x(Reference.angled) * scale + 32,
       p.get_y(Reference.angled) *scale + 32 + config.topdown_image.dimensions.height * scale + 32,
+      5, 5
+    );
+  }
+  // draw cursor on topdown field
+  else if (region == Region.field_angled) {
+    p = new Point(
+      (mouseX - 32) / scale,
+      (mouseY - 64 - config.topdown_image.dimensions.height * scale) / scale,
+      Reference.angled
+    );
+    stroke(0);
+    fill(255);
+    ellipse(
+      p.get_x(Reference.topdown) * scale + 32,
+      p.get_y(Reference.topdown) * scale + 32,
       5, 5
     );
   }
@@ -80,17 +103,6 @@ function draw() {
   
   // draw foreground of angled field
   image(field_angled_front, 32,  32 + config.topdown_image.dimensions.height * scale + 32, config.angle_image.dimensions.width * scale, config.angle_image.dimensions.height * scale);
-
-  // redraw cursor on angled field, inverted at low opacity (for visibility behind foreground)
-  if (region == Region.field_topdown) {
-    stroke(255, 50);
-    fill(0, 50);
-    ellipse(
-      p.get_x(Reference.angled) * scale + 32,
-      p.get_y(Reference.angled) *scale + 32 + config.topdown_image.dimensions.height * scale + 32,
-      5, 5
-    );
-  }
 
   // draw side menu
   draw_side_menu();
