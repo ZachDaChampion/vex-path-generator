@@ -71,13 +71,6 @@ function draw() {
       p.get_y(Reference.angled) * scale + 32 + config.topdown_image.dimensions.height * scale + 32,
       5, 5
     );
-    stroke(255, 50);
-    fill(0, 50);
-    ellipse(
-      p.get_x(Reference.angled) * scale + 32,
-      p.get_y(Reference.angled) *scale + 32 + config.topdown_image.dimensions.height * scale + 32,
-      5, 5
-    );
   }
   // draw cursor on topdown field
   else if (region == Region.field_angled) {
@@ -103,6 +96,17 @@ function draw() {
   
   // draw foreground of angled field
   image(field_angled_front, 32,  32 + config.topdown_image.dimensions.height * scale + 32, config.angle_image.dimensions.width * scale, config.angle_image.dimensions.height * scale);
+
+  // redraw cursor on angled field, inverted at low opacity (for visibility behind foreground)
+  if (region == Region.field_topdown) {
+    stroke(255, 50);
+    fill(0, 50);
+    ellipse(
+      p.get_x(Reference.angled) * scale + 32,
+      p.get_y(Reference.angled) *scale + 32 + config.topdown_image.dimensions.height * scale + 32,
+      5, 5
+    );
+  }
 
   // draw side menu
   draw_side_menu();
