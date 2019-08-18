@@ -14,7 +14,9 @@ function draw_side_menu() {
   }
 
   // draw add point config
-  update_add_point_config();
-  draw_add_point_config(width - list_width, 0);
+  else {
+    update_add_point_config();
+    draw_add_point_config(width - list_width, 0);
+  }
 
 }
