@@ -1,12 +1,14 @@
 class Button {
 
-  constructor(x, y, width, height, label, callback=null) {
+  constructor(x, y, width, height, label, callback=null, is_toggle=false, toggled=false) {
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
     this.label = label;
     this.callback = callback;
+    this.is_toggle = is_toggle;
+    this.toggled = toggled;
 
     this.mouse_over = false;
     this.mouse_down = false;
@@ -35,6 +37,7 @@ class Button {
       catch(error) {
         console.error(error);
       }
+      this.toggled = this.is_toggle && !this.toggled;
     }
   }
 
@@ -42,9 +45,9 @@ class Button {
   draw() {
 
     stroke(128);
-    let clr = 192;
-    if (this.mouse_over) clr = 128;
-    if (this.mouse_down) clr = 64;
+    let clr = this.toggled ? 128 : 192;
+    if (this.mouse_over) clr -= 64;
+    if (this.mouse_down) clr = this.is_toggle ? 0 : clr - 64;
     fill(clr);
 
     rect(this.x, this.y, this.width, this.height, 12);

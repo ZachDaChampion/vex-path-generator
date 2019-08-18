@@ -55,7 +55,7 @@ function draw_point_config(transx, transy) {
   textAlign(LEFT, TOP);
   noStroke();
   fill(0, 200);
-  text('Point', 24, 24);
+  text('Modify Point', 24, 24);
 
   // x coordinate
   x_button.update(mouseX - transx, mouseY - transy);
