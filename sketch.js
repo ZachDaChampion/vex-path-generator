@@ -57,27 +57,33 @@ function draw() {
   // get cursor pos
   let p;
 
-  // draw cursor on angled field
+  // get cursor pos (topdown)
   if (region == Region.field_topdown) {
     p = new Point(
       (mouseX - 32) / scale,
       (mouseY - 32) / scale,
       Reference.topdown
     );
+  }
+
+  // get cursor pos (angled) and highlight it
+  else if (region == Region.field_angled) {
+    p = new Point(
+      (mouseX - 32) / scale,
+      (mouseY - 64 - config.topdown_image.dimensions.height * scale) / scale,
+      Reference.angled
+    );
+  }
+  
+  // draw opaque cursors
+  if ([Region.field_angled, Region.field_topdown].includes(region)) {
+    noCursor();
     stroke(0);
     fill(255);
     ellipse(
       p.get_x(Reference.angled) * scale + 32,
       p.get_y(Reference.angled) * scale + 32 + config.topdown_image.dimensions.height * scale + 32,
       5, 5
-    );
-  }
-  // draw cursor on topdown field
-  else if (region == Region.field_angled) {
-    p = new Point(
-      (mouseX - 32) / scale,
-      (mouseY - 64 - config.topdown_image.dimensions.height * scale) / scale,
-      Reference.angled
     );
     stroke(0);
     fill(255);
@@ -87,6 +93,7 @@ function draw() {
       5, 5
     );
   }
+  else cursor(ARROW);
 
   // draw shapes
   for (var i = 0; i < shape_path.length; i++) {
@@ -97,14 +104,40 @@ function draw() {
   // draw foreground of angled field
   image(field_angled_front, 32,  32 + config.topdown_image.dimensions.height * scale + 32, config.angle_image.dimensions.width * scale, config.angle_image.dimensions.height * scale);
 
-  // redraw cursor on angled field, inverted at low opacity (for visibility behind foreground)
-  if (region == Region.field_topdown) {
+  // redraw cursor, inverted at low opacity (for visibility behind foreground)
+  if ([Region.field_angled, Region.field_topdown].includes(region)) {
     stroke(255, 50);
     fill(0, 50);
     ellipse(
       p.get_x(Reference.angled) * scale + 32,
       p.get_y(Reference.angled) *scale + 32 + config.topdown_image.dimensions.height * scale + 32,
       5, 5
+    );
+    stroke(255, 50);
+    ellipse(
+      p.get_x(Reference.topdown) * scale + 32,
+      p.get_y(Reference.topdown) *scale + 32,
+      5, 5
+    );
+  }
+
+  // highlight cursor
+  if (region == Region.field_topdown) {
+    stroke(255);
+    noFill();
+    ellipse(
+      p.get_x(Reference.topdown) * scale + 32,
+      p.get_y(Reference.topdown) * scale + 32,
+      10, 10
+    );
+  }
+  else if (region == Region.field_angled) {
+    stroke(255);
+    noFill();
+    ellipse(
+      p.get_x(Reference.angled) * scale + 32,
+      p.get_y(Reference.angled) * scale + 32 + config.topdown_image.dimensions.height * scale + 32,
+      10, 10
     );
   }
 
